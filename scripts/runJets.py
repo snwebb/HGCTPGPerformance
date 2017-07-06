@@ -22,6 +22,7 @@ if __name__=='__main__':
     usage = 'usage: %prog [options]'
     parser = optparse.OptionParser(usage)
     parser.add_option('--input', dest='input_file', help='Input file',default=None)
+    parser.add_option('--output', dest='output_file', help='Output file. Override parameters specifications.',default=None)
     #parser.add_option('--cfg', dest='parameter_file', help='Python file containing definition of parameters',default="hgc_tpg.jets.parameters")
     (opt, args) = parser.parse_args()
     if not opt.input_file:
@@ -32,6 +33,8 @@ if __name__=='__main__':
     #parameters = importlib.import_module(re.sub('.py$','',opt.parameter_file)).parameters
     from hgc_tpg.jets.parameters import parameters
     par = parameters()
+    if opt.output_file:
+        par.output["file"]=opt.output_file
 
     main(opt.input_file,par)
 
