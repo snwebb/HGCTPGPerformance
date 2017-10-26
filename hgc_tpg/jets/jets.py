@@ -52,7 +52,7 @@ class EnergyProfile(BaseRun):
                     dRmin=gj.DeltaR(jet)
                     E02 = jet.Energy()
                     match1 = True
-                    break
+                    #break
             dRmin=self.dR
             for itr, jet in enumerate(self.outer.jetsR_[0.1]):
                 if jet.Pt() < 20: continue
@@ -60,7 +60,7 @@ class EnergyProfile(BaseRun):
                     dRmin=gj.DeltaR(jet)
                     E01 = jet.Energy()
                     match2 = True
-                    break
+                    #break
         
             self.histos["CutFlow"].Fill(0)
             if match1: self.histos["CutFlow"].Fill(1)
