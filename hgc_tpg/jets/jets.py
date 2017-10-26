@@ -24,6 +24,60 @@ class BaseRun:
     def finalize(self):
         return self
 
+class EnergyProfile(BaseRun):
+    def __init__(self,outer):
+        self.outer=outer
+        self.histos={}
+        self.dR=0.4
+
+        self.histos["EnergyProfile"] = ROOT . TH2D("EnergyProfile","EnergyProfile;E0.2/E0.1;ETrue/E0.2",1000,0,10,1000,0,10)
+        self.histos["CutFlow"] = ROOT . TH1D("CutFlow","AllGen,match02,match01,matchboth",10,0,10)
+
+    def run(self):
+        ## match true -> E02 -> E01
+        for igen, gj in enumerate(self.outer.genjets_):
+            if gj.Pt()<30: continue
+            if abs(gj.Eta()) > 3.0 or abs(gj.Eta()) < 1.5 : continue
+            ET  = gj.Energy()
+            E02 = 0.
+            E01 = 0.
+            match1=False
+            match2=False
+            #print "Considering Jet PT=",gj.Pt(),",",gj.Eta(),gj.Phi()
+            dRmin=self.dR
+            for itr, jet in enumerate(self.outer.jetsR_[0.2]):
+                #print " RECO 02 Jet PT=",jet.Pt(),":",jet.Eta(),jet.Phi(),"DR=", gj.DeltaR(jet)
+                if jet.Pt() < 20: continue
+                if gj.DeltaR(jet) < dRmin: 
+                    dRmin=gj.DeltaR(jet)
+                    E02 = jet.Energy()
+                    match1 = True
+                    break
+            dRmin=self.dR
+            for itr, jet in enumerate(self.outer.jetsR_[0.1]):
+                if jet.Pt() < 20: continue
+                if gj.DeltaR(jet) < dRmin: 
+                    dRmin=gj.DeltaR(jet)
+                    E01 = jet.Energy()
+                    match2 = True
+                    break
+        
+            self.histos["CutFlow"].Fill(0)
+            if match1: self.histos["CutFlow"].Fill(1)
+            if match2: self.histos["CutFlow"].Fill(2)
+            if match1 and match2:
+                self.histos["CutFlow"].Fill(3)
+                self.histos["EnergyProfile"].Fill(ET/E02,E02/E01)
+
+
+        return self
+
+    def finalize(self):
+        for h_str in self.histos  :
+            h=self.histos[h_str]
+            h.Write()
+        return self
+
 class efficiency_pteta(BaseRun):
     def __init__(self,outer):
         self.outer=outer
@@ -294,6 +348,9 @@ class jet_clustering:
 
         self.doCalibration=conf.calibration["do"]
 
+        self.extraRadius=conf.cluster["extraRadius"]
+        self.clusterR = conf.cluster["dR"]
+
 
         if self.doCalibration:
             self.printCalib=0
@@ -315,10 +372,13 @@ class jet_clustering:
         self.jets_ = []
         self.genjets_ = []
         self.time_=None
+        #jets with different radius: "0.1" -> []
+        self.jetsR_ = {}
 
     def clear(self):
         self.jets_=[]
         self.genjets_=[]
+        self.jetsR_ = {}
 
     def do_clusters(self,ptV,etaV,phiV,energyV ):
         ''' run the clustering on the input std vectors'''
@@ -334,15 +394,23 @@ class jet_clustering:
             input_particles.append( (p.Pt(),p.Eta(),p.Phi(),p.M())  )
        
         ip = np.array( input_particles, dtype=DTYPE_PTEPM)
-        sequence=cluster( ip, algo="antikt",ep=False,R=0.4)
+        sequence=cluster( ip, algo="antikt",ep=False,R=self.clusterR)
         jets = sequence.inclusive_jets()
 
         for i, jet in enumerate(jets):
-            #print("{0: <5} {1: 10.3f} {2: 10.3f} {3: 10.3f} {4: 10.3f} {5: 10}".format(
-            #    i + 1, jet.pt, jet.eta, jet.phi, jet.mass, len(jet)))
             p = ROOT.TLorentzVector()
             p.SetPtEtaPhiM(  jet.pt, jet.eta, jet.phi, jet.mass)
             self.jets_ .append(p) 
+
+        for dR in self.extraRadius:
+            self.jetsR_[dR]=[]
+            sequence=cluster( ip, algo="antikt",ep=False,R=dR)
+            jets = sequence.inclusive_jets()
+            for i, jet in enumerate(jets):
+                p = ROOT.TLorentzVector()
+                p.SetPtEtaPhiM(  jet.pt, jet.eta, jet.phi, jet.mass)
+                self.jetsR_[dR] .append(p) 
+
         return self
 
     def do_genjets(self,ptV,etaV,phiV,energyV):
@@ -464,6 +532,13 @@ class jet_clustering:
 
             ## produce trigger jets and gen jets
             self.do_clusters(c3d_pt_,c3d_eta_,c3d_phi_,c3d_energy_).do_genjets( genjets_pt_,genjets_eta_,genjets_phi_,genjets_energy_)
+
+            if ientry< 10:
+                print "ENTRY",ientry
+                print "JETS", len(self.jets_)
+                for dR in self.jetsR_:
+                    print "JETS R = ",dR,len(self.jetsR_[dR])
+                print "---------------------------------"
 
             if self.doCalibration and self.calibf != None:
                 if self.printCalib< 10: print "--------- JET CALIBRATION ----------"

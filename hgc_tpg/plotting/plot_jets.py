@@ -103,6 +103,7 @@ def plot_turnon(ftype="nopu"):
     c.SaveAs("plot/turnon_pt_"+ftype+".pdf")
 
 def plot_turnon_pu():
+    doFit=True
     files={ "nopu":ROOT.TFile.Open("qcd_flat_nopu.root"),
             "pu140":ROOT.TFile.Open("qcd_flat_pu140.root"),
             "pu200":ROOT.TFile.Open("qcd_flat_pu200.root")
@@ -112,7 +113,8 @@ def plot_turnon_pu():
     ROOT.gStyle.SetOptTitle(0)
     ## turn on -- no pu
     c=draw_canvas("turnon_pt")
-    rebin=array('d',[0,10,20,30,40,50,60,70,80,90,100,110,120,140,160,180,200,250,300,350,400,450,500,600,700,800,1000])
+    #rebin=array('d',[0,10,20,30,40,50,60,70,80,90,100,110,120,140,160,180,200,250,300,350,400,450,500,600,700,800,1000])
+    rebin=array('d',[0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,300,350,400,450,500,600,700,800,1000])
     
     histos={}
     x,y=.6,.20
@@ -120,11 +122,12 @@ def plot_turnon_pu():
     leg.SetFillStyle(0)
     leg.SetBorderSize(0)
     leg.AddEntry(None,"   1.5 < |#eta_{j}| < 3.0","h")
-    pt=100
+    pt=150
     
-    print "No 140"
-    #for pu,col in zip([0,140,200],[ROOT.kGreen-2,38,46]):
-    for pu,col in zip([0,200],[ROOT.kGreen-2,38,46]):
+    #print "No 140"
+    fitFunc={}
+    for pu,col in zip([0,140,200],[ROOT.kGreen-2,38,46]):
+    #for pu,col in zip([0,200],[ROOT.kGreen-2,38,46]):
     #for pt,col in zip([35,80,120],[ROOT.kGreen-2,38,46]):
         # get
         if pu==0:
@@ -151,12 +154,22 @@ def plot_turnon_pu():
             histos["pt%d_pu%d"%(pt,pu)] . GetXaxis() . SetTitleOffset(1.5)
             histos["pt%d_pu%d"%(pt,pu)] . GetYaxis() . SetTitleOffset(1.5)
             histos["pt%d_pu%d"%(pt,pu)] . GetYaxis() . SetRangeUser(0,1.1)
+            histos["pt%d_pu%d"%(pt,pu)] . GetXaxis() . SetRangeUser(0,400)
             histos["pt%d_pu%d"%(pt,pu)] . Draw("AXIS")
             draw_line()
             histos["pt%d_pu%d"%(pt,pu)] . Draw("AXIS X+ Y+ SAME")
             histos["pt%d_pu%d"%(pt,pu)] . Draw("AXIS SAME")
 
         histos["pt%d_pu%d"%(pt,pu)] . Draw(" HIST SAME")
+        if doFit:
+            f = ROOT.TF1("func_pt%d_pu%d"%(pt,pu),"0.5*TMath::Erf( (x-[0])/[1]) +0.5",0,1000)
+            f.SetParameter(0,pt)
+            f.SetParameter(1,30)
+            histos["pt%d_pu%d"%(pt,pu)].Fit("func_pt%d_pu%d"%(pt,pu),"WWNQ")
+            f.SetLineColor(col)
+            f.SetLineWidth(1)
+            fitFunc[ "pt%d_pu%d"%(pt,pu)] = f
+            f.Draw("L SAME")
 
     histos["pt%d_pu%d"%(pt,0)] . Draw("AXIS X+ Y+ SAME")
     histos["pt%d_pu%d"%(pt,0)] . Draw("AXIS SAME")
@@ -283,4 +296,5 @@ if __name__ == "__main__":
     plot_resolution("","pu200")
     #plot_resolution("gen")
     #plot_resolution("gen","pu200")
+    #plot_resolution("gen","pu140")
 

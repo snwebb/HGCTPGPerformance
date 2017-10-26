@@ -38,7 +38,7 @@ if __name__=='__main__':
         sec = pstr.split(':')[0]
         sub = pstr.split(':')[1]
         if len(pstr.split(':')) >=3 :
-            val = pstr.split(':')[2]
+            val = ':'.join(pstr.split(':')[2:])
             print "* overriding setting:",sec + '["'+ sub+'"] = ' +val
             exec('par.'+sec + '["'+ sub+'"] = ' +val )
         else:
