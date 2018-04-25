@@ -316,9 +316,41 @@ class jet_clustering:
         self.genjets_ = []
         self.time_=None
 
+        self.jets_pt        = ROOT.std.vector('float')()
+        self.jets_eta       = ROOT.std.vector('float')()
+        self.jets_phi       = ROOT.std.vector('float')()
+        self.jets_energy    = ROOT.std.vector('float')()
+
+        self.jets_C3d_pt     = ROOT.std.vector(ROOT.std.vector('float'))()
+        self.jets_C3d_eta    = ROOT.std.vector(ROOT.std.vector('float'))()
+        self.jets_C3d_phi    = ROOT.std.vector(ROOT.std.vector('float'))()
+        self.jets_C3d_energy = ROOT.std.vector(ROOT.std.vector('float'))()
+
+        self.tree_out.Branch( 'jets_pt',     self.jets_pt )
+        self.tree_out.Branch( 'jets_eta',    self.jets_eta )
+        self.tree_out.Branch( 'jets_phi',    self.jets_phi )
+        self.tree_out.Branch( 'jets_energy', self.jets_energy )
+
+        self.tree_out.Branch( 'jets_C3d_pt',     self.jets_C3d_pt )
+        self.tree_out.Branch( 'jets_C3d_eta',    self.jets_C3d_eta )
+        self.tree_out.Branch( 'jets_C3d_phi',    self.jets_C3d_phi )
+        self.tree_out.Branch( 'jets_C3d_energy', self.jets_C3d_energy )        
+
+
+
     def clear(self):
         self.jets_=[]
         self.genjets_=[]
+
+        self.jets_pt.clear()
+        self.jets_eta.clear()
+        self.jets_phi.clear()
+        self.jets_energy.clear()
+
+        self.jets_C3d_pt.clear()
+        self.jets_C3d_eta.clear()
+        self.jets_C3d_phi.clear()
+        self.jets_C3d_energy.clear()
 
     def do_clusters(self,ptV,etaV,phiV,energyV ):
         ''' run the clustering on the input std vectors'''
@@ -329,12 +361,12 @@ class jet_clustering:
         
         input_particles = []
         for i in range(0,n):
-            p = ROOT.TLorentzVector()
-            p.SetPtEtaPhiE(ptV[i],etaV[i],phiV[i],energyV[i])
+            p = ROOT.TLorentzVector()        
+            p.SetPtEtaPhiE(ptV[i],etaV[i],phiV[i],energyV[i])            
             input_particles.append( (p.Pt(),p.Eta(),p.Phi(),p.M())  )
        
         ip = np.array( input_particles, dtype=DTYPE_PTEPM)
-        sequence=cluster( ip, algo="antikt",ep=False,R=0.4)
+        sequence=cluster( ip, algo="antikt",ep=False,R=0.2)
         jets = sequence.inclusive_jets()
 
         for i, jet in enumerate(jets):
@@ -343,6 +375,32 @@ class jet_clustering:
             p = ROOT.TLorentzVector()
             p.SetPtEtaPhiM(  jet.pt, jet.eta, jet.phi, jet.mass)
             self.jets_ .append(p) 
+
+            self.jets_pt.push_back(p.Pt())
+            self.jets_eta.push_back(p.Eta())
+            self.jets_phi.push_back(p.Phi())
+            self.jets_energy.push_back(p.E())
+
+            C3d_pt = ROOT.std.vector('float')()
+            C3d_eta = ROOT.std.vector('float')()
+            C3d_phi = ROOT.std.vector('float')()
+            C3d_energy = ROOT.std.vector('float')()
+
+            for C3d in jet:
+                c = ROOT.TLorentzVector()
+                c.SetPtEtaPhiM(  C3d.pt, C3d.eta, C3d.phi, C3d.mass)
+                C3d_pt.push_back(c.Pt())
+                C3d_eta.push_back(c.Eta())
+                C3d_phi.push_back(c.Phi())
+                C3d_energy.push_back(c.E())
+                
+            self.jets_C3d_pt.push_back(C3d_pt)
+            self.jets_C3d_eta.push_back(C3d_eta)
+            self.jets_C3d_phi.push_back(C3d_phi)
+            self.jets_C3d_energy.push_back(C3d_energy)
+
+        self.tree_out.Fill()
+
         return self
 
     def do_genjets(self,ptV,etaV,phiV,energyV):
@@ -457,13 +515,13 @@ class jet_clustering:
 
 
 
-            genjets_pt_ = np.array(entry.genjet_pt)
-            genjets_eta_ = np.array(entry.genjet_eta)
-            genjets_phi_ = np.array(entry.genjet_phi)
-            genjets_energy_ = np.array(entry.genjet_energy)
+            #genjets_pt_ = np.array(entry.genjet_pt)
+            #genjets_eta_ = np.array(entry.genjet_eta)
+            #genjets_phi_ = np.array(entry.genjet_phi)
+            #genjets_energy_ = np.array(entry.genjet_energy)
 
             ## produce trigger jets and gen jets
-            self.do_clusters(c3d_pt_,c3d_eta_,c3d_phi_,c3d_energy_).do_genjets( genjets_pt_,genjets_eta_,genjets_phi_,genjets_energy_)
+            self.do_clusters(c3d_pt_,c3d_eta_,c3d_phi_,c3d_energy_)#.do_genjets( genjets_pt_,genjets_eta_,genjets_phi_,genjets_energy_)
 
             if self.doCalibration and self.calibf != None:
                 if self.printCalib< 10: print "--------- JET CALIBRATION ----------"
@@ -484,4 +542,98 @@ class jet_clustering:
             for x in todo: x.run()
         self.output.cd()
         for x in todo: x.finalize()
+        self.tree_out.Write()
         return self
+
+
+
+
+#class ntuplizer_jets(BaseRun):
+#    def __init__(self,outer):
+#        self.outer=outer
+#        self.treename = outer.cfg.output['tree']
+#
+#        self.tree = ROOT.TTree(self.treename,self.treename)
+#
+#        self.genjets_pt     = ROOT.std.vector('float')()
+#        self.genjets_eta    = ROOT.std.vector('float')()
+#        self.genjets_phi    = ROOT.std.vector('float')()
+#        self.genjets_energy = ROOT.std.vector('float')()
+#
+#        self.jets_pt        = ROOT.std.vector('float')()
+#        self.jets_eta       = ROOT.std.vector('float')()
+#        self.jets_phi       = ROOT.std.vector('float')()
+#        self.jets_energy    = ROOT.std.vector('float')()
+#
+#        self.jets_C3d_pt     = ROOT.std.vector(ROOT.std.vector('float'))()
+#        self.jets_C3d_eta    = ROOT.std.vector(ROOT.std.vector('float'))()
+#        self.jets_C3d_phi    = ROOT.std.vector(ROOT.std.vector('float'))()
+#        self.jets_C3d_energy = ROOT.std.vector(ROOT.std.vector('float'))()
+#
+#        self.tree.Branch( 'genjets_pt',     self.genjets_pt )
+#        self.tree.Branch( 'genjets_eta',    self.genjets_eta )
+#        self.tree.Branch( 'genjets_phi',    self.genjets_phi )
+#        self.tree.Branch( 'genjets_energy', self.genjets_energy )
+#
+#        self.tree.Branch( 'jets_pt',     self.jets_pt )
+#        self.tree.Branch( 'jets_eta',    self.jets_eta )
+#        self.tree.Branch( 'jets_phi',    self.jets_phi )
+#        self.tree.Branch( 'jets_energy', self.jets_energy )
+#
+#        self.tree.Branch( 'jets_C3d_pt',     self.jets_C3d_pt )
+#        self.tree.Branch( 'jets_C3d_eta',    self.jets_C3d_eta )
+#        self.tree.Branch( 'jets_C3d_phi',    self.jets_C3d_phi )
+#        self.tree.Branch( 'jets_C3d_energy', self.jets_C3d_energy )
+#
+#    def run(self):
+#
+#        self.genjets_pt.clear()
+#        self.genjets_eta.clear()
+#        self.genjets_phi.clear()
+#        self.genjets_energy.clear()
+#
+#        self.jets_pt.clear()
+#        self.jets_eta.clear()
+#        self.jets_phi.clear()
+#        self.jets_energy.clear()
+#
+#        self.jets_C3d_pt.clear()
+#        self.jets_C3d_eta.clear()
+#        self.jets_C3d_phi.clear()
+#        self.jets_C3d_energy.clear()
+#
+#        for igen, gj in enumerate(self.outer.genjets_):
+#            self.genjets_pt.push_back(gj.Pt())
+#            self.genjets_eta.push_back(gj.Eta())
+#            self.genjets_phi.push_back(gj.Phi())
+#            self.genjets_energy.push_back(gj.E())
+#
+#        for ijet, gj in enumerate(self.outer.jets_):
+#            self.jets_pt.push_back(gj.Pt())
+#            self.jets_eta.push_back(gj.Eta())
+#            self.jets_phi.push_back(gj.Phi())
+#            self.jets_energy.push_back(gj.E())
+#
+#            C3d_pt = ROOT.std.vector('float')()
+#            C3d_eta = ROOT.std.vector('float')()
+#            C3d_phi = ROOT.std.vector('float')()
+#            C3d_energy = ROOT.std.vector('float')()
+#
+#            for C3d in gj:
+#                C3d_pt.push_back(C3d.Pt())
+#                C3d_eta.push_back(C3d.Eta())
+#                C3d_phi.push_back(C3d.Phi())
+#                C3d_energy.push_back(C3d.E())
+#                
+#            self.jets_C3d_pt.push_back(C3d_pt)
+#            self.jets_C3d_eta.push_back(C3d_eta)
+#            self.jets_C3d_phi.push_back(C3d_phi)
+#            self.jets_C3d_energy.push_back(C3d_energy)
+#
+#            
+#        self.tree.Fill()
+#
+#    def finalize(self):
+#        self.tree.Write()
+#        return self
+

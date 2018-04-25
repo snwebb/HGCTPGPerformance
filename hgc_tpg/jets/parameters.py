@@ -4,7 +4,7 @@ import numpy as np
 class parameters :
     def __init__(self):
         ##
-        self.calibration={"do":True,
+        self.calibration={"do":False,
                 "type":"inversion","constants":[
                 #1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 
                 #1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 
@@ -62,4 +62,4 @@ class parameters :
         self.turnon = {"ptbins":array('d',range(30,1000)),"dR":float(0.3),"ptcut":[float(50),float(100),float(150),float(200.)]}
         self.layer_deposits= {'ptcut':[30,40,50,80,100,200,500,1000],
                 'dR':0.4
-                }
+                }  
