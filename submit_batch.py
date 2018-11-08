@@ -12,7 +12,13 @@ print
 NumberOfJobs= 100 # number of jobs to be submitted
 interval = 1 # number files to be processed in a single job, take care to split your file so that you run on all files. The last job might be with smaller number of files (the ones that remain).
 OutputFileNames = "ntuple_jet" # base of the output file name, they will be saved in res directory
-ScriptName = "scripts/runJets.py" # script to be used with cmsRun
+#ScriptName = "scripts/runJets.py" # script to be used with cmsRun
+ScriptName = "scripts/runResolution.py" # script to be used with cmsRun
+#InputDir = "SingleGammaPt25Eta1p6_2p8/crab_SingleGammaPt25_PU0-threshold/181031_145212/0000"
+InputDir = "SingleGammaPt25Eta1p6_2p8/crab_SingleGammaPt25_PU0-stc/181031_145114/0000"
+
+#InputDir = "SinglePiPt100Eta1p6_2p8/crab_SinglePiPt100Eta1p6_2p8-threshold/181106_151745/0000"
+#InputDir = "SinglePiPt100Eta1p6_2p8/crab_SinglePiPt100Eta1p6_2p8-stc/181106_112212/0000"
 #FileList = "filelist.txt" # list with all the file directories
 queue = "8nh" # give bsub queue -- 8nm (8 minutes), 1nh (1 hour), 8nh, 1nd (1day), 2nd, 1nw (1 week), 2nw 
 ########   customization end   #########
@@ -40,24 +46,36 @@ for x in range(1, int(NumberOfJobs)+1):
       fout.write("echo\n")
       fout.write("echo 'START---------------'\n")
       fout.write("echo 'WORKDIR ' ${PWD}\n")
-      fout.write("source /afs/cern.ch/work/t/tstreble/private/FastJet_HGC/HGCTPGPerformance/init_env_lxplus.sh\n")
-      fout.write("export X509_USER_PROXY=/afs/cern.ch/user/t/tstreble/myVoms/x509up_u`id -u`\n")
+      fout.write("source /afs/cern.ch/work/s/sawebb/private/FastJet_HGC/HGCTPGPerformance/init_env_lxplus.sh\n")
+      fout.write("export X509_USER_PROXY=/afs/cern.ch/user/s/sawebb/private/myVoms/x509up_u`id -u`\n")
       fout.write("cd "+str(path)+"\n")
-      fout.write("python "+ScriptName+" --input='root://cms-xrd-global.cern.ch//store/user/tstreble/SingleNeutrino/SingleNu_PU200_C3D_polarHisto_18_08_13/180813_163907/0000/ntuple_"+str(x)+".root' --output='res2/"+OutputFileNames+"_"+str(x)+".root'\n")
+      fout.write("python "+ScriptName+" --input='root://cms-xrd-global.cern.ch//store/user/sawebb/" + InputDir + "/ntuple_"+str(x)+".root' --output='res2/"+OutputFileNames+"_"+str(x)+".root'\n")
       fout.write("echo 'STOP---------------'\n")
       fout.write("echo\n")
       fout.write("echo\n")
    os.system("chmod 755 job.sh")
+
+
+   ##### creates submit file #######
+   with open('condor.sub', 'w') as fout:
+      fout.write("executable            = job.sh \n")
+      fout.write("arguments             = $(ClusterID) $(ProcId) \n")
+      fout.write("output                = $(ClusterId).out\n")
+      fout.write("error                 = $(ClusterId).err\n")
+      fout.write("log                   = $(ClusterId).log\n")
+      fout.write("+JobFlavour           = \"workday\"\n") 
+      fout.write("queue")
    
    ###### sends bjobs ######
-   os.system("bsub -q "+queue+" -o logs job.sh")
+#   os.system("bsub -q "+queue+" -o logs job.sh")
+   os.system("condor_submit condor.sub")
    print "job nr " + str(x) + " submitted"
    
    os.chdir("../..")
    
 print
 print "your jobs:"
-os.system("bjobs")
+os.system("condor_q")
 print
 print 'END'
 print
