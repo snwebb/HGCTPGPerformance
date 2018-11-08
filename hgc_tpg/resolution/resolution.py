@@ -17,7 +17,7 @@ class resolution :
     # function that produce the response plot - looking to dR-match between gen-C3d #
     # keep the highest-pt C3d in the cone as L1-candidate #
     def plotResponse(self) :
-
+        
         # definition of the output file and histogram to store in it
         output = ROOT.TFile(self.outputFile+".root","RECREATE")
         h_resoPt = ROOT.TH1D("resoPt","Pt response",100, 0, 2)
@@ -34,7 +34,7 @@ class resolution :
             gen_phi_ = np.array(entry.gen_phi)
             gen_energy_ = np.array(entry.gen_energy)
             gen_status_ = np.array(entry.gen_status)
-            gen_id_ = np.array(entry.gen_id)        
+            gen_id_ = np.array(entry.gen_pdgid)        
             c3d_pt_ = np.array(entry.cl3d_pt)
             c3d_eta_ = np.array(entry.cl3d_eta)
             c3d_phi_ = np.array(entry.cl3d_phi)
