@@ -453,6 +453,7 @@ class jet_clustering:
         print 
         
         nentries=self.chain.GetEntries()
+        print nentries
         for ientry,entry in enumerate(self.chain):
             self.print_progress(ientry,nentries)
             self.clear()
