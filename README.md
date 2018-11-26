@@ -27,6 +27,12 @@ If it worked correctly the terminal prompt should be prefixed with `(hgc_tpg)`, 
 
 On machines other than lxplus, the same thing can be done, just the Python and ROOT setup at the beginning of the script would need to be modified.
 
+If you move the package location you need to reinstall the virtual environment:
+```
+rm -r ~/.virtualenvs/hgc_tpg/
+source init_env_lxplus.sh
+```
+
 ## Usage
 The package code is located in `hgc_tpg`. It is divided in sub-directories corresponding to different performance studies:
 * `resolution`: study of energy and position resolutions
