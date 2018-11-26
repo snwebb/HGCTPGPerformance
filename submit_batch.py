@@ -13,7 +13,9 @@ NumberOfJobs= 100 # number of jobs to be submitted
 #NumberOfJobs= 1 # number of jobs to be submitted
 interval = 1 # number files to be processed in a single job, take care to split your file so that you run on all files. The last job might be with smaller number of files (the ones that remain).
 OutputFileNames = "ntuple_jet" # base of the output file name, they will be saved in res directory
+#OutputFileNames = "ntuple_res" # base of the output file name, they will be saved in res directory
 ScriptName = "scripts/runJets.py" # script to be used with cmsRun
+#ScriptName = "scripts/runResolution.py" # script to be used with cmsRun
 
 #Single Gamma
 #"SingleGammaPt25Eta1p6_2p8/crab_SingleGammaPt25_PU0-threshold/181031_145212/0000"
@@ -28,12 +30,25 @@ queue = "8nh" # give bsub queue -- 8nm (8 minutes), 1nh (1 hour), 8nh, 1nd (1day
 ########   customization end   #########
 
 InputDirList = [ 
-   "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_stc-histoMax/181113_145456/0000",
-   "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_stc-histoMax/181113_145456/0000"
+#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU0-threshold-TCs-histoMax-DR03/181121_113118/0000",
+#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU0-stc-TCs-histoMax-DR03/181121_113207/0000",
+#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU200-threshold-TCs-histoMax-DR03/181121_115525/0000",
+#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU200-stc-TCs-histoMax-DR03/181121_115450/0000"
+
+"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_PU200-threshold-TCs-histoInterpolated1stOrder/181120_144304/0000",
+"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_PU200-stc-TCs-histoInterpolated1stOrder/181120_144350/0000",
+"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_PU200-thresold-TCs-histoInterpolated2ndOrder/181120_144511/0000",
+"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_PU200-stc-TCs-histoInterpolated2ndOrder/181120_144618/0000"
    ]
 OutputDirList = [
-   "vbf_stc_histomax",
-   "vbf_stc_histomax"
+#   "gamma_pu0_threshold_histomax",
+ #  "gamma_pu0_stc_histomax",
+#   "gamma_pu200_threshold_histomax",
+#   "gamma_pu200_stc_histomax-res"
+   "VBF_PU200-threshold-TCs-histoInterpolated1stOrder",
+   "VBF_PU200-stc-TCs-histoInterpolated1stOrder",
+   "VBF_PU200-threshold-TCs-histoInterpolated2ndOrder",
+   "VBF_PU200-stc-TCs-histoInterpolated2ndOrder"
    ]
 
 path = os.getcwd()
@@ -61,9 +76,9 @@ for indir, outdir in zip( InputDirList, OutputDirList ):
          fout.write("echo\n")
          fout.write("echo 'START---------------'\n")
          fout.write("echo 'WORKDIR ' ${PWD}\n")
+         fout.write("cd "+str(path)+"\n")
          fout.write("source /afs/cern.ch/work/s/sawebb/private/FastJet_HGC/HGCTPGPerformance/init_env_lxplus.sh\n")
          fout.write("export X509_USER_PROXY=/afs/cern.ch/user/s/sawebb/private/myVoms/x509up_u`id -u`\n")
-         fout.write("cd "+str(path)+"\n")
          fout.write("python "+ScriptName+" --input='root://cms-xrd-global.cern.ch//store/user/sawebb/" + indir + "/ntuple_"+str(x)+".root' --output='res/"+outdir + "/" + OutputFileNames+"_"+str(x)+".root'\n")
          fout.write("echo 'STOP---------------'\n")
          fout.write("echo\n")
