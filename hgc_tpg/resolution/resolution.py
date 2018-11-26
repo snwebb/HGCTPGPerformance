@@ -19,7 +19,7 @@ class resolution :
     def plotResponse(self) :
         
         # definition of the output file and histogram to store in it
-        output = ROOT.TFile(self.outputFile+".root","RECREATE")
+        output = ROOT.TFile(self.outputFile,"RECREATE")
         h_resoPt = ROOT.TH1D("resoPt","Pt response",100, 0, 2)
         h_resoEta = ROOT.TH1D("resoEta","Eta response",100, -0.15, 0.15);
         h_resoPhi = ROOT.TH1D("resoPhi","Phi response",100, -0.15, 0.15);
