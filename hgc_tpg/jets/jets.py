@@ -360,11 +360,18 @@ class jet_clustering:
         if len(energyV) != n : raise ValueError('input vectors have different length')
         
         input_particles = []
+
         for i in range(0,n):
+
             p = ROOT.TLorentzVector()        
+            if ( math.isnan( ptV[i] ) ) or (math.isnan( etaV[i] ) ) or ( math.isnan( phiV[i] ) ):
+                continue
+            if ( math.isinf( ptV[i] ) ) or (math.isinf( etaV[i] ) ) or ( math.isinf( phiV[i] ) ):
+                continue
+
             p.SetPtEtaPhiE(ptV[i],etaV[i],phiV[i],energyV[i])            
             input_particles.append( (p.Pt(),p.Eta(),p.Phi(),p.M())  )
-       
+            
         ip = np.array( input_particles, dtype=DTYPE_PTEPM)
         sequence=cluster( ip, algo="antikt",ep=False,R=0.2)
         jets = sequence.inclusive_jets()
