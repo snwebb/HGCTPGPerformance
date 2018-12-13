@@ -9,4 +9,6 @@ hgc_tpg/utilities/__init__.pyc
 hgc_tpg/utilities/functions.pyc
 *~
 tmp2/
-res2/
+res/
+hgc_tpg.egg-info/
+copyallfiles.sh
