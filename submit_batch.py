@@ -53,19 +53,61 @@ InputDirList = [
 #"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-15mipt-DR03-WE/181206_160853/0000",
 #"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-20mipt-DR03-WE/181206_161001/0000",
 
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA016-DRB02-NS/181212_124134/0000",
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA018-DRB02-NS/181212_124221/0000",
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA020-DRB02-NS/181212_124338/0000",
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA025-DRB02-NS/181212_124434/0000",
-#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA030-DRB02-NS/181212_124527/0000",
-   ]
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA016-DRB02-NS/181212_124134/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA018-DRB02-NS/181212_124221/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA020-DRB02-NS/181212_124338/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA025-DRB02-NS/181212_124434/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA030-DRB02-NS/181212_124527/0000",
+
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-5mipt-DRA015-DRB02-NS/181217_154547/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-5mipt-DRA020-DRB02-NS/181217_154732/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-5mipt-DRA030-DRB02-NS/181217_154932/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-5mipt-DRA040-DRB02-NS/181217_155131/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-5mipt-DRA050-DRB02-NS/181217_155258/0000",
+
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU0-stc-TCs-histoMax-5mipt-DRA040-DRB02-NS/190104_150739/0000",
+
+
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-DRA040-DRB00-NS-new/190111_103822/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-DRA040-DRB01-NS-new/190111_103702/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-stc-TCs-histoMax-DRA040-DRB03-NS-new/190111_103608/0000",
+
+"/DoubleNuE1Eta14_31/crab_DoubleNu-PU200-stc-TCs-histoMax-DRA040-DRB020-NS/190118_101937/0000",
+
+]
 OutputDirList = [
 
-"VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA016-DRB02-NS",
-"VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA018-DRB02-NS",
-"VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA020-DRB02-NS",
-"VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA025-DRB02-NS",
-#"VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA030-DRB02-NS",
+#   "DoubleNu-PU200-stc-TCs-histoMax-DRA040-DRB02-NS",
+   "DoubleNu-PU200-stc-TCs-histoMax-DRA040-DRB02-NS-2",
+   
+ #"VBF-PU200-stc-TCs-TCs-DR01Jets",
+
+# "VBF-PU0-stc-TCs-histoMax-5mipt-DRA040-DRB02-NS-DR04",
+
+##"VBF-PU200-stc-TCs-histoMax-DRA040-DRB00-NS-new",
+#"VBF-PU200-stc-TCs-histoMax-DRA040-DRB01-NS-new",
+#"VBF-PU200-stc-TCs-histoMax-DRA040-DRB03-NS-new",
+
+
+# "VBF-PU200-stc-TCs-histoMax-5mipt-DRA040-DRB02-NS-JET01",
+
+# "VBF-PU200-stc-TCs-histoMax-5mipt-DRA015-DRB02-NS-new",
+# "VBF-PU200-stc-TCs-histoMax-5mipt-DRA020-DRB02-NS-new",
+# "VBF-PU200-stc-TCs-histoMax-5mipt-DRA030-DRB02-NS-new",
+# "VBF-PU200-stc-TCs-histoMax-5mipt-DRA040-DRB02-NS-new",
+# "VBF-PU200-stc-TCs-histoMax-5mipt-DRA050-DRB02-NS-new",
+
+# "VBF-PU200-stc-TCs-TCs-new",
+# "VBF-PU200-stc-TCs-TCs",
+# "VBF-PU200-stc-TCs-TCs",
+# "VBF-PU200-stc-TCs-TCs",
+# "VBF-PU200-stc-TCs-TCs",
+
+#"VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA016-DRB02-NS",
+# "VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA018-DRB02-NS",
+# "VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA020-DRB02-NS",
+# "VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA025-DRB02-NS",
+# "VBF-PU200-stc-TCs-histoInterpolated1stOrder-5mipt-DRA030-DRB02-NS",
 
 
 #   "gamma_pu0_threshold_histomax",

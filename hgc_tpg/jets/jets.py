@@ -331,10 +331,10 @@ class jet_clustering:
         self.tree_out.Branch( 'jets_phi',    self.jets_phi )
         self.tree_out.Branch( 'jets_energy', self.jets_energy )
 
-        self.tree_out.Branch( 'jets_C3d_pt',     self.jets_C3d_pt )
-        self.tree_out.Branch( 'jets_C3d_eta',    self.jets_C3d_eta )
-        self.tree_out.Branch( 'jets_C3d_phi',    self.jets_C3d_phi )
-        self.tree_out.Branch( 'jets_C3d_energy', self.jets_C3d_energy )        
+        # self.tree_out.Branch( 'jets_C3d_pt',     self.jets_C3d_pt )
+        # self.tree_out.Branch( 'jets_C3d_eta',    self.jets_C3d_eta )
+        # self.tree_out.Branch( 'jets_C3d_phi',    self.jets_C3d_phi )
+        # self.tree_out.Branch( 'jets_C3d_energy', self.jets_C3d_energy )        
 
 
 
@@ -352,7 +352,7 @@ class jet_clustering:
         self.jets_C3d_phi.clear()
         self.jets_C3d_energy.clear()
 
-    def do_clusters(self,ptV,etaV,phiV,energyV ):
+    def do_clusters(self,ptV,etaV,phiV,energyV,dr_jets ):
         ''' run the clustering on the input std vectors'''
         n=len(ptV)
         if len(etaV) != n : raise ValueError('input vectors have different length')
@@ -373,7 +373,10 @@ class jet_clustering:
             input_particles.append( (p.Pt(),p.Eta(),p.Phi(),p.M())  )
             
         ip = np.array( input_particles, dtype=DTYPE_PTEPM)
-        sequence=cluster( ip, algo="antikt",ep=False,R=0.2)
+#        sequence=cluster( ip, algo="antikt",ep=False,R=0.4)
+        print dr_jets
+        sequence=cluster( ip, algo="antikt",ep=False,R=dr_jets)
+#        sequence=cluster( ip, algo="antikt",ep=False,R=0.1)
         jets = sequence.inclusive_jets()
 
         for i, jet in enumerate(jets):
@@ -460,14 +463,22 @@ class jet_clustering:
         print 
         
         nentries=self.chain.GetEntries()
+ #       nentries = 10
         print nentries
         for ientry,entry in enumerate(self.chain):
             self.print_progress(ientry,nentries)
             self.clear()
-            c3d_pt_ = np.array(entry.cl3d_pt)
+
+#            if ( ientry > nentries ): break
+
+            c3d_pt_ = np.array(entry.cl3d_pt)#Can change cl3d to TC in order to make each TC (seed) a 3D cluster
             c3d_eta_ = np.array(entry.cl3d_eta)
             c3d_phi_ = np.array(entry.cl3d_phi)
             c3d_energy_ = np.array(entry.cl3d_energy)
+            # c3d_pt_ = np.array(entry.tc_pt)#Can change cl3d to TC in order to make each TC (seed) a 3D cluster
+            # c3d_eta_ = np.array(entry.tc_eta)
+            # c3d_phi_ = np.array(entry.tc_phi)
+            # c3d_energy_ = np.array(entry.tc_energy)
 
             if "matrix_calibration" in self.cfg.torun or self.doCalibration or 'layer_deposits' in self.cfg.torun:
                 c3d_clusters_ = np.array(entry.cl3d_clusters)
@@ -528,8 +539,8 @@ class jet_clustering:
             #genjets_phi_ = np.array(entry.genjet_phi)
             #genjets_energy_ = np.array(entry.genjet_energy)
 
-            ## produce trigger jets and gen jets
-            self.do_clusters(c3d_pt_,c3d_eta_,c3d_phi_,c3d_energy_)#.do_genjets( genjets_pt_,genjets_eta_,genjets_phi_,genjets_energy_)
+            ## produce trigger jets and gen jets            
+            self.do_clusters(c3d_pt_,c3d_eta_,c3d_phi_,c3d_energy_,self.cfg.dr_jet)#.do_genjets( genjets_pt_,genjets_eta_,genjets_phi_,genjets_energy_)
 
             if self.doCalibration and self.calibf != None:
                 if self.printCalib< 10: print "--------- JET CALIBRATION ----------"
