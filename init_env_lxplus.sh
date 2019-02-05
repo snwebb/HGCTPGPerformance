@@ -2,8 +2,8 @@
 
 # setup Python 2.7 and ROOT 6
 source /opt/rh/python27/enable
-source /afs/cern.ch/sw/lcg/external/gcc/4.9/x86_64-slc6-gcc49-opt/setup.sh
-source /afs/cern.ch/sw/lcg/app/releases/ROOT/6.06.08/x86_64-slc6-gcc49-opt/root/bin/thisroot.sh
+source /cvmfs/sft.cern.ch/lcg/external/gcc/4.9/x86_64-slc6-gcc49-opt/setup.sh
+source /cvmfs/sft.cern.ch/lcg/views/ROOT-latest/6.06.08/x86_64-slc6-gcc49-opt/root/bin/thisroot.sh
 
 # Install virtualenvwrapper package if not already installed
 if [ ! -f ~/.local/bin/virtualenvwrapper.sh ]; then
