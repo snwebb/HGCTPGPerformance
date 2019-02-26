@@ -1,15 +1,25 @@
 #! /usr/bin/env bash
 
 # setup Python 2.7 and ROOT 6
+
+#source /cvmfs/sft.cern.ch/lcg/external/gcc/4.9.1/x86_64-slc6-gcc48-opt/setup.sh
+source /cvmfs/sft.cern.ch/lcg/contrib/gcc/4.9/x86_64-slc6/setup.sh
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/6.06.08/x86_64-slc6-gcc49-opt/root/bin/thisroot.sh
+
+#/sft.cern.ch/lcg/views/ROOT-latest/x86_64-slc6-gcc49-opt/setup.sh
 source /opt/rh/python27/enable
-source /cvmfs/sft.cern.ch/lcg/external/gcc/4.9/x86_64-slc6-gcc49-opt/setup.sh
-source /cvmfs/sft.cern.ch/lcg/views/ROOT-latest/6.06.08/x86_64-slc6-gcc49-opt/root/bin/thisroot.sh
+
+
+#which root
+ # unset PYTHONPATH
+ # export PYTHONPATH=:/lib
+ # unset PYTHONHOME
 
 # Install virtualenvwrapper package if not already installed
 if [ ! -f ~/.local/bin/virtualenvwrapper.sh ]; then
   # deleting cached packages to force download
   rm -rf ~/.cache/pip/
-  pip2.7 install --user -I virtualenvwrapper
+  pip install --user -I virtualenvwrapper
 fi
 
 # Create virtual env and install dependencies

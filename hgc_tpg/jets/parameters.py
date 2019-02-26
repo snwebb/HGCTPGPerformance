@@ -45,8 +45,9 @@ class parameters :
         self.matrix_calibration={"file":"matrix_calibration.root"}
 
         ## cluster parameters
-        self.cluster = {"dR": float(0.4), "ptmin":float(3.0)}
-
+        self.cluster = {"dR": float(0.4), "ptmin":float(0.5)}
+        self.cluster_input = {"cl3D"}
+#        self.cluster_input = {"tc"}
         ## tree name
         self.output = {"tree":"jets","file":"output.root"}
 

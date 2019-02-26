@@ -6,7 +6,6 @@ sys.path.insert(0,'.')
 import rootpy.ROOT as ROOT
 from hgc_tpg.jets.jets import jet_clustering
 
-
 def main(input_file,parameters):
     jc = jet_clustering(input_file,parameters)
     jc.loop()
