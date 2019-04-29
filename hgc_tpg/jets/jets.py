@@ -280,7 +280,8 @@ class matrix_calibration(BaseRun):
 class jet_clustering:
     ''' Jet Clustering '''
     def __init__(self, input_file, conf):
-        self.chain = ROOT.TChain("hgcalTriggerNtuplizer/HGCalTriggerNtuple")
+
+        self.chain = ROOT.TChain(conf.input["tree"] + "/HGCalTriggerNtuple")
         for template_name in input_file.split(','):
             if '*' in template_name:
                 for f in glob(template_name):
@@ -293,7 +294,6 @@ class jet_clustering:
         self.cfg = conf
 
         self.doCalibration=conf.calibration["do"]
-
 
         if self.doCalibration:
             self.printCalib=0

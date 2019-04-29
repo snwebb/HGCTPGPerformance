@@ -2,13 +2,27 @@
 
 # setup Python 2.7 and ROOT 6
 
-#source /cvmfs/sft.cern.ch/lcg/external/gcc/4.9.1/x86_64-slc6-gcc48-opt/setup.sh
-source /cvmfs/sft.cern.ch/lcg/contrib/gcc/4.9/x86_64-slc6/setup.sh
-source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/6.06.08/x86_64-slc6-gcc49-opt/root/bin/thisroot.sh
 
-#/sft.cern.ch/lcg/views/ROOT-latest/x86_64-slc6-gcc49-opt/setup.sh
-source /opt/rh/python27/enable
+source /cvmfs/sft.cern.ch/lcg/contrib/gcc/4.9/x86_64-centos7/setup.sh
+source /cvmfs/sft.cern.ch/lcg/app/releases/ROOT/6.06.08/x86_64-centos7-gcc49-opt/root/bin/thisroot.sh
 
+
+export PYPATH=/usr/bin
+
+export PATH=${PYPATH}/root/usr/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=${PYPATH}/root/usr/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export MANPATH=${PYPATH}/root/usr/share/man:${MANPATH}
+# For systemtap
+export XDG_DATA_DIRS=${PYPATH}/root/usr/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}
+# For pkg-config
+export PKG_CONFIG_PATH=${PYPATH}/root/usr/lib64/pkgconfig${PKG_CONFIG_PATH:+:${PKG_CONFIG_PATH}}
+
+
+
+
+#source /opt/rh/python27/enable
+
+#scl enable python27 bash
 
 #which root
  # unset PYTHONPATH
