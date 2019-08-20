@@ -9,9 +9,10 @@ import math
 from glob import glob
 import sys
 from datetime import datetime
+from numpy.lib.recfunctions import append_fields
 
 ## using pyjet
-from pyjet import cluster, DTYPE_EP, DTYPE_PTEPM
+from pyjet import cluster, DTYPE_EP, DTYPE_PTEPM, DTYPE
 
 
 class BaseRun:
@@ -321,6 +322,28 @@ class jet_clustering:
         self.jets_phi       = ROOT.std.vector('float')()
         self.jets_energy    = ROOT.std.vector('float')()
 
+        self.jets_n_cl        = ROOT.std.vector('int')()
+        self.jets_srrsum        = ROOT.std.vector('float')()
+        self.jets_srr_best        = ROOT.std.vector('float')()
+        self.jets_srr_paul        = ROOT.std.vector('float')()
+        self.jets_sppsum        = ROOT.std.vector('float')()
+        self.jets_spp_best        = ROOT.std.vector('float')()
+        self.jets_spp_paul        = ROOT.std.vector('float')()
+        self.jets_firstfrac        = ROOT.std.vector('float')()
+        self.jets_sppjet        = ROOT.std.vector('float')()
+        self.jets_srrjet        = ROOT.std.vector('float')()
+
+        # self.gen_status       = ROOT.std.vector('int')()
+        # self.gen_pt        = ROOT.std.vector('float')()
+        # self.gen_eta       = ROOT.std.vector('float')()
+        # self.gen_phi       = ROOT.std.vector('float')()
+        # self.gen_energy    = ROOT.std.vector('float')()
+
+        # self.genjet_pt        = ROOT.std.vector('float')()
+        # self.genjet_eta       = ROOT.std.vector('float')()
+        # self.genjet_phi       = ROOT.std.vector('float')()
+        # self.genjet_energy    = ROOT.std.vector('float')()
+
         self.jets_C3d_pt     = ROOT.std.vector(ROOT.std.vector('float'))()
         self.jets_C3d_eta    = ROOT.std.vector(ROOT.std.vector('float'))()
         self.jets_C3d_phi    = ROOT.std.vector(ROOT.std.vector('float'))()
@@ -330,6 +353,34 @@ class jet_clustering:
         self.tree_out.Branch( 'jets_eta',    self.jets_eta )
         self.tree_out.Branch( 'jets_phi',    self.jets_phi )
         self.tree_out.Branch( 'jets_energy', self.jets_energy )
+
+        self.tree_out.Branch( 'jets_n_cl',     self.jets_n_cl )
+
+        self.tree_out.Branch( 'jets_srrsum',     self.jets_srrsum )
+        self.tree_out.Branch( 'jets_srr_best',     self.jets_srr_best )
+        self.tree_out.Branch( 'jets_srr_paul',     self.jets_srr_paul )
+        self.tree_out.Branch( 'jets_srrjet',     self.jets_srrjet )
+
+        self.tree_out.Branch( 'jets_sppsum',     self.jets_sppsum )
+        self.tree_out.Branch( 'jets_spp_best',     self.jets_spp_best )
+        self.tree_out.Branch( 'jets_spp_paul',     self.jets_spp_paul )
+        self.tree_out.Branch( 'jets_sppjet',     self.jets_sppjet )
+
+        self.tree_out.Branch( 'jets_firstfrac',     self.jets_firstfrac )
+
+
+
+        # self.tree_out.Branch( 'genjet_pt',     self.genjet_pt )
+        # self.tree_out.Branch( 'genjet_eta',    self.genjet_eta )
+        # self.tree_out.Branch( 'genjet_phi',    self.genjet_phi )
+        # self.tree_out.Branch( 'genjet_energy', self.genjet_energy )
+
+        # self.tree_out.Branch( 'gen_id',     self.gen_id )
+        # self.tree_out.Branch( 'gen_status',     self.gen_status )
+        # self.tree_out.Branch( 'gen_pt',     self.gen_pt )
+        # self.tree_out.Branch( 'gen_eta',    self.gen_eta )
+        # self.tree_out.Branch( 'gen_phi',    self.gen_phi )
+        # self.tree_out.Branch( 'gen_energy', self.gen_energy )
 
         # self.tree_out.Branch( 'jets_C3d_pt',     self.jets_C3d_pt )
         # self.tree_out.Branch( 'jets_C3d_eta',    self.jets_C3d_eta )
@@ -347,20 +398,43 @@ class jet_clustering:
         self.jets_phi.clear()
         self.jets_energy.clear()
 
+        self.jets_n_cl.clear()
+        self.jets_srrsum.clear()
+        self.jets_srr_best.clear()
+        self.jets_srr_paul.clear()
+        self.jets_srrjet.clear()
+
+        self.jets_sppsum.clear()
+        self.jets_spp_best.clear()
+        self.jets_spp_paul.clear()
+        self.jets_sppjet.clear()
+
+        self.jets_firstfrac.clear()
+
+
+        # self.genjet_pt.clear()
+        # self.genjet_eta.clear()
+        # self.genjet_phi.clear()
+        # self.genjet_energy.clear()
+
         self.jets_C3d_pt.clear()
         self.jets_C3d_eta.clear()
         self.jets_C3d_phi.clear()
         self.jets_C3d_energy.clear()
 
-    def do_clusters(self,ptV,etaV,phiV,energyV,dr_jets,ptmin):
+    def do_clusters(self,ptV,etaV,phiV,energyV,srrsumV,sppsumV,dr_jets,ptmin):
         ''' run the clustering on the input std vectors'''
         n=len(ptV)
         if len(etaV) != n : raise ValueError('input vectors have different length')
         if len(phiV) != n : raise ValueError('input vectors have different length')
         if len(energyV) != n : raise ValueError('input vectors have different length')
+        if len(srrsumV) != n : raise ValueError('input vectors have different length')
+        if len(sppsumV) != n : raise ValueError('input vectors have different length')
         
         input_particles = []
-
+        c3d_srrsum = []
+        c3d_sppsum = []
+        cld_rhoenergy = []
         for i in range(0,n):
 
             p = ROOT.TLorentzVector()        
@@ -370,12 +444,31 @@ class jet_clustering:
                 continue
 
             p.SetPtEtaPhiE(ptV[i],etaV[i],phiV[i],energyV[i])            
-
             if (p.Pt() < ptmin ):
                 continue
-            input_particles.append( (p.Pt(),p.Eta(),p.Phi(),p.M())  )
+
+
+
+
+
+
             
+            input_particles.append( (p.Pt(),p.Eta(),p.Phi(),p.M() ) )
+            c3d_srrsum.append( (srrsumV[i]) )
+            c3d_sppsum.append( (sppsumV[i]) )
+
+
+
+
+        
+        
         ip = np.array( input_particles, dtype=DTYPE_PTEPM)
+        srr = np.array( c3d_srrsum, dtype=DTYPE)
+        spp = np.array( c3d_sppsum, dtype=DTYPE)
+
+        ip = append_fields( ip, 'srrsum', srr)
+        ip = append_fields( [ip], 'sppsum', spp)
+
         sequence=cluster( ip, algo="antikt",ep=False,R=dr_jets)
         jets = sequence.inclusive_jets()
 
@@ -396,6 +489,21 @@ class jet_clustering:
             C3d_phi = ROOT.std.vector('float')()
             C3d_energy = ROOT.std.vector('float')()
 
+            jets_srrsum = 0.0
+            jets_srr_best = 0.0
+            jets_sppsum = 0.0
+            jets_spp_best = 0.0
+            maxclusterpt = 0.0
+
+            c3d_rho = []
+            c3d_phi = []
+            c3d_energy = []
+            d_cl_rho = []
+            d_cl_phi = []
+
+            jet_rho = (np.sqrt(pow(p.X(),2) + pow(p.Y(),2)))/abs(p.Z())
+
+
             for C3d in jet:
                 c = ROOT.TLorentzVector()
                 c.SetPtEtaPhiM(  C3d.pt, C3d.eta, C3d.phi, C3d.mass)
@@ -403,22 +511,92 @@ class jet_clustering:
                 C3d_eta.push_back(c.Eta())
                 C3d_phi.push_back(c.Phi())
                 C3d_energy.push_back(c.E())
+                jets_srrsum += C3d.srrsum
+                jets_sppsum += C3d.sppsum
+                if c.Pt() > maxclusterpt:
+                    maxclusterpt = c.Pt()
+                    
+                rho = (np.sqrt(pow(c.X(),2) + pow(c.Y(),2)))/abs(c.Z())
+
+                jets_srr_best+=(rho-jet_rho+C3d.srrsum)
+                jets_spp_best+=(c.Phi()-p.Phi()+C3d.sppsum)
+
+                c3d_rho.append( rho )
+                c3d_phi.append( p.Phi() )
+                c3d_energy.append( p.E() )
+
+                if rho-jet_rho >= 0:
+                    d_cl_rho.append( rho-jet_rho + C3d.srrsum )
+                else:
+                    d_cl_rho.append( rho-jet_rho - C3d.srrsum )
+
+                if c.Phi()-p.Phi() > 0:
+                    d_cl_phi.append( c.Phi()-p.Phi() + C3d.sppsum )
+                else:
+                    d_cl_phi.append( c.Phi()-p.Phi() - C3d.sppsum )
+                
+            weighted_stddev = 0
+            weighted_stddev_phi = 0
+            if (len(jet) > 1):
+                weighted_stddev = np.sqrt(np.cov(c3d_rho, aweights=c3d_energy))                            
+                weighted_stddev_phi = np.sqrt(np.cov(c3d_phi, aweights=c3d_energy))                            
+
+
+            if ( len(d_cl_phi) > 1 ):
+                jets_spp_paul = 0.5 * ( max(d_cl_phi)  - min(d_cl_phi) )
+            else:
+                jets_spp_paul = abs(max(d_cl_phi))
+            if ( len(d_cl_rho) > 1 ):
+                jets_srr_paul = 0.5 * ( max(d_cl_rho)  - min(d_cl_rho) )
+            else:
+                jets_srr_paul = abs(max(d_cl_rho))
                 
             self.jets_C3d_pt.push_back(C3d_pt)
             self.jets_C3d_eta.push_back(C3d_eta)
             self.jets_C3d_phi.push_back(C3d_phi)
             self.jets_C3d_energy.push_back(C3d_energy)
 
-        self.tree_out.Fill()
+            self.jets_n_cl.push_back(len(jet))
+            self.jets_srrsum.push_back(jets_srrsum)
+            self.jets_srr_best.push_back(jets_srr_best)
+            self.jets_srrjet.push_back( weighted_stddev )
+            self.jets_srr_paul.push_back( jets_srr_paul )
+
+            self.jets_sppsum.push_back(jets_sppsum)
+            self.jets_spp_best.push_back(jets_spp_best)
+            self.jets_sppjet.push_back( weighted_stddev )
+            self.jets_spp_paul.push_back( jets_spp_paul )
+            self.jets_firstfrac.push_back(maxclusterpt/p.Pt())
+
+
+#        self.tree_out.Fill()
 
         return self
 
     def do_genjets(self,ptV,etaV,phiV,energyV):
         ''' just grab genjets and put in the class collection'''
         for pt, eta, phi, energy in zip( ptV,etaV,phiV,energyV):
-            p = ROOT.TLorentzVector()
-            p.SetPtEtaPhiE(  pt, eta, phi, energy)
-            self.genjets_ .append(p) 
+        #     p = ROOT.TLorentzVector()
+        #     p.SetPtEtaPhiE(  pt, eta, phi, energy)
+        #     self.genjets_ .append(p) 
+
+#        for igen, gj in enumerate(self.genjets_):
+            self.genjet_pt.push_back(pt)
+            self.genjet_eta.push_back(eta)
+            self.genjet_phi.push_back(phi)
+            self.genjet_energy.push_back(energy)
+
+        return self
+
+    def do_gen(self,idV,statusV,ptV,etaV,phiV,energyV):
+        for ids, status, pt, eta, phi, energy in zip( idV,statusV,ptV,etaV,phiV,energyV):
+            self.gen_id.push_back(ids)
+            self.gen_status.push_back(status)
+            self.gen_pt.push_back(pt)
+            self.gen_eta.push_back(eta)
+            self.gen_phi.push_back(phi)
+            self.gen_energy.push_back(energy)
+
         return self
    
 
@@ -463,19 +641,22 @@ class jet_clustering:
         print 
         
         nentries=self.chain.GetEntries()
- #       nentries = 10
+        nentries_choice = 10
         print nentries
         for ientry,entry in enumerate(self.chain):
             self.print_progress(ientry,nentries)
             self.clear()
 
-#            if ( ientry > nentries ): break
+#            if ( ientry > nentries_choice ): break
 
             if "cl3D" in self.cfg.cluster_input:
                 c3d_pt_ = np.array(entry.cl3d_pt)#Can change cl3d to TC in order to make each TC (seed) a 3D cluster
                 c3d_eta_ = np.array(entry.cl3d_eta)
                 c3d_phi_ = np.array(entry.cl3d_phi)
                 c3d_energy_ = np.array(entry.cl3d_energy)
+                c3d_srrtot_ = np.array(entry.cl3d_srrtot)
+                c3d_spptot_ = np.array(entry.cl3d_spptot)
+
             if "tc" in self.cfg.cluster_input:
                 c3d_pt_ = np.array(entry.tc_pt)#Can change cl3d to TC in order to make each TC (seed) a 3D cluster
                 c3d_eta_ = np.array(entry.tc_eta)
@@ -536,15 +717,21 @@ class jet_clustering:
 
 
 
-            #genjets_pt_ = np.array(entry.genjet_pt)
-            #genjets_eta_ = np.array(entry.genjet_eta)
-            #genjets_phi_ = np.array(entry.genjet_phi)
-            #genjets_energy_ = np.array(entry.genjet_energy)
+            # genjets_pt_ = np.array(entry.genjet_pt)
+            # genjets_eta_ = np.array(entry.genjet_eta)
+            # genjets_phi_ = np.array(entry.genjet_phi)
+            # genjets_energy_ = np.array(entry.genjet_energy)
 
             ## produce trigger jets and gen jets            
 
             ptmin=self.cfg.cluster['ptmin']
-            self.do_clusters(c3d_pt_,c3d_eta_,c3d_phi_,c3d_energy_,self.cfg.dr_jet,ptmin)#.do_genjets( genjets_pt_,genjets_eta_,genjets_phi_,genjets_energy_)
+
+#            self.do_gen( np.array(entry.gen_pdgid) ,np.array(entry.gen_status) ,np.array(entry.gen_pt) ,np.array(entry.gen_eta),np.array(entry.gen_phi),np.array(entry.gen_energy))
+#            self.do_genjets( np.array(entry.genjet_pt) ,np.array(entry.genjet_eta),np.array(entry.genjet_phi),np.array(entry.genjet_energy))
+            self.do_clusters(c3d_pt_,c3d_eta_,c3d_phi_,c3d_energy_,c3d_srrtot_,c3d_spptot_,self.cfg.dr_jet,ptmin)#
+            
+            #Fill tree
+            self.tree_out.Fill()
 
             if self.doCalibration and self.calibf != None:
                 if self.printCalib< 10: print "--------- JET CALIBRATION ----------"

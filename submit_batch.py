@@ -30,87 +30,164 @@ queue = "8nh" # give bsub queue -- 8nm (8 minutes), 1nh (1 hour), 8nh, 1nd (1day
 ########   customization end   #########
 
 InputDirList = [ 
-#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU0-threshold-TCs-histoMax-DR03/181121_113118/0000",
-#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU0-stc-TCs-histoMax-DR03/181121_113207/0000",
-#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU200-threshold-TCs-histoMax-DR03/181121_115525/0000",
-#   "SingleGammaPt25Eta1p6_2p8/crab_SingleGamma-PU200-stc-TCs-histoMax-DR03/181121_115450/0000"
 
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-threshold0p5-default-3sigSensorThreshold/190411_094137/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-threshold1p0-default-3sigSensorThreshold/190411_101248/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-threshold1p5-default-3sigSensorThreshold/190411_101334/0000",
+#WORKSHOP
 
+#V9 (DEFAULT CLUSTER RADIUS)
+#  "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-Threshold/190610_093502/0000",
+#  "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SuperTCs/190610_093658/0000",
+#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SeedThreshold/190610_093753/0000",
+#   "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-ClusterRadius/190610_093841/0000",
+#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-Default-WithTriggerCells/190610_120552/0000",
 
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-threshold0-default-2sigSensorThreshold/190411_100202/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-threshold0-default-4sigSensorThreshold/190411_100020/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-threshold0-default-5sigSensorThreshold/190411_095923/0000",
+#Version2
+#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SeedThreshold/190611_141655/0000",
 
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-STC2_SimpleCoarsening-default-NewSensorThreshold-Fix-2/190412_115121/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-STC4-default-2sigSensorThreshold/190412_115657/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-STC4-default-3sigSensorThreshold/190412_115912/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-STC4-default-4sigSensorThreshold/190412_120258/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-STC4-default-5sigSensorThreshold/190412_120509/0000",
+#V8 (DEFAULT CLUSTER RADIUS)
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-Threshold/190610_142648/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SuperTCs/190610_142730/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SeedThreshold/190610_142831/0000",
+# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-ClusterRadius/190610_142908/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-Default-WithTriggerCells/190610_143015/0000",
 
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-1bit-default/190415_162613/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-STC4-default/190415_162400/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-EqualShare-default/190415_162516/0000",
-
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-1bit-default/190416_101946/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-STC4-default/190416_101729/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-EqualShare-default/190416_101837/0000",
+#V9 (EXTENDED CLUSTER RADIUS)
+# "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-Threshold-DR1p75/190610_160411/0000",
+# "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SuperTCs-DR1p75/190610_160541/0000",
+# "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SeedThreshold-DR1p75/190610_161108/0000",
 
 
-# "/SinglePion_FlatPt-2to100/crab_SinglePionFlatPt-PU200-Threshold/190416_151852/0000/",
-# "/SinglePion_FlatPt-2to100/crab_SinglePionFlatPt-PU200-STC4/190416_151809/0000/",
-
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU0-ThickCoarse-1bit-default/190425_124354/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU0-ThickCoarse-STC4-default/190417_153733/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU0-ThickCoarse-EqualShare-default/190417_154700/0000",
+#V8 (EXTENDED CLUSTER RADIUS)
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-Threshold-DR1p75/190610_161427/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SuperTCs-DR1p75/190610_161652/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SeedThreshold-DR1p75/190610_161347/0000",
 
 
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-STC4-Radx1p5/190425_124449/0000",
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-EqualShare-Radx1p5/190425_124529/0000",
-"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-ThickCoarse-1bit-Radx1p5/190425_124607/0000",
+
+#V9 HGG (DEFAULT CLUSTER RADIUS)
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-Threshold/190612_085552/0000",
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-SuperTCs/190611_103109/0000",
+
+
+
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-Threshold-WS/190614_103104/0000",
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-SuperTCs-WS/190614_103316/0000",
+# "VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-SeedThreshold-WS/190614_103718/0000",
+# "VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-ClusterRadius-WS/190614_103923/0000",
+
+#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-Threshold-WS/190614_103007/0000",
+#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SuperTCs-WS/190614_103237/0000",
+# "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SeedThreshold-WS/190614_103645/0000",
+# "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-ClusterRadius-WS/190614_103833/0000",
+
+#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-Default-WithTriggerCells-WS/190614_132424/0000",
+
+
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-Threshold-WS/190617_142337/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SuperTCs-WS/190617_155355/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SeedThreshold-WS/190617_155622/0000",
+#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-ClusterRadius-WS/190617_/0000",
+
+
+
+
+
+# "VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-Decentralised/190709_130200/0000",
+# "NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-MultiAlgo-Decentralised/190709_130228/0000",
+# "VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-Decentralised/190717_141103/0000",
+# "NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-MultiAlgo-Decentralised/190717_141958/0000",
+
+# "VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MultiAlgo-Decentralised-BugFix/190718_161801/0000",
+# "NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-MultiAlgo-Decentralised-BugFix/190718_161654/0000",
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Default/190726_142831/0000",
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Decentralised/190730_112632/0000",
+
+#"NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-Decentralised/190731_092913/0000",
+
+# "RelValDiQ_Pt20To300_Etam1p6Tom2p9/crab_QuarkGun-Neg-PU0-Decentralised/190802_100839/0000",
+# "RelValDiQ_Pt20To300_Etam1p6Tom2p9/crab_QuarkGun-Neg-PU140-Decentralised/190802_100807/0000",
+# "RelValDiQ_Pt20To300_Etam1p6Tom2p9/crab_QuarkGun-Neg-PU200-Decentralised/190802_100732/0000",
+
+"RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU0-Decentralised/190802_100704/0000",
+"RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU140-Decentralised/190802_100633/0000",
+"RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU200-Decentralised/190802_100555/0000",
+
+
 
 ]
 
+
+TreeNames = [
+#THRESHOLD
+# "Fp8Threshold0p0DummyHistomaxvardrdrho1p0Ntup",
+# "Fp8Threshold1p0DummyHistomaxvardrdrho1p0Ntup",
+# "Fp8Threshold2p0DummyHistomaxvardrdrho1p0Ntup",
+# "Fp8Threshold3p0DummyHistomaxvardrdrho1p0Ntup",
+
+#THRESHOLD EXTENDED
+# "Fp8Threshold0p0DummyHistomaxvardrdrho1p75Ntup",
+# "Fp8Threshold0p5DummyHistomaxvardrdrho1p75Ntup",
+# "Fp8Threshold1p0DummyHistomaxvardrdrho1p75Ntup",
+# "Fp8Threshold1p5DummyHistomaxvardrdrho1p75Ntup",
+# "Fp8Threshold2p0DummyHistomaxvardrdrho1p75Ntup",
+# "Fp8Threshold3p0DummyHistomaxvardrdrho1p75Ntup",
+
+#SUPER TC
+
+# #SUPER TC EXTENDED
+# "Fp8BestchoiceDummyHistomaxvardrdrho1p0Ntup",
+# "Fp8Stc4161616DummyHistomaxvardrdrho1p0Ntup",
+# "Fp8Stc4444FixedDummyHistomaxvardrdrho1p0Ntup",
+# "Fp8EqualShare4444FixedDummyHistomaxvardrdrho1p0Ntup",
+# "Fp8Onebit4444FixedDummyHistomaxvardrdrho1p0Ntup",
+
+#SEED THRESHOLD
+
+#  "Fp8ThresholdDummyHistomaxvardrth0Ntup",
+#  "Fp8ThresholdDummyHistomaxvardrth10Ntup",
+#  "Fp8ThresholdDummyHistomaxvardrth20Ntup",
+#  "Fp8ThresholdDummyHistomaxvardrth40Ntup",
+
+
+#DRHO
+
+# "Fp8ThresholdDummyHistomaxvardrdrho1p0Ntup",
+# "Fp8ThresholdDummyHistomaxvardrdrho1p5Ntup",
+# "Fp8ThresholdDummyHistomaxvardrdrho2p0Ntup",
+# "Fp8ThresholdDummyHistomaxvardrdrho5p0Ntup",
+
+
+
+
+# "Fp8ThresholdDummyHistomaxNtup",
+# "Fp8Stc4444FixedDummyHistomaxNtup",
+# "Fp8BestchoiceDummyHistomaxNtup",
+
+"Fp8ThresholdDummyHistomaxNtup",
+"Fp8Stc4161616DummyHistomaxNtup",
+"Fp8BestchoiceDummyHistomaxNtup",
+
+# "Fp8ThresholdDummyHistomaxNtup",
+# "Fp8Stc4161616DummyHistomaxbin4Ntup",
+# "Fp8BestchoiceDummyHistomaxNtup",
+
+#DEFAULT
+#"hgcalTriggerNtuplizer",
+
+ ]
+
+
 #TreeNames = [ "Floatingpoint8ThresholdRef2dRef3dGenclustersntuple", "Floatingpoint8SupertriggercellDummyHistomaxClustersntuple" ]
 
-TreeNames = [ "hgcalTriggerNtuplizer" ]
-
-
-OutputDirList = [
-
-   "VBF-PU0-ThickCoarse-1bit-default",
-
-   "VBF-PU200-ThickCoarse-STC4-Radx1p5",
-   "VBF-PU200-ThickCoarse-EqualShare-Radx1p5",
-   "VBF-PU200-ThickCoarse-1bit-Radx1p5",
-  # "VBF-PU0-ThickCoarse-STC4-default",
-  # "VBF-PU0-ThickCoarse-EqualShare-default",
-
-   # "SinglePionFlatPt-PU200-Threshold",
-   # "SinglePionFlatPt-PU200-STC4",
-
-  # "VBF-PU200-ThickCoarse-1bit-default",
-  # "VBF-PU200-ThickCoarse-STC4-default",
-  # "VBF-PU200-ThickCoarse-EqualShare-default",
-   
- # "VBF-PU200-STC2_SimpleCoarsening-default-NewSensorThreshold-Fix-2",
- # "VBF-PU200-STC4-default-2sigSensorThreshold",
- # "VBF-PU200-STC4-default-4sigSensorThreshold",
- # "VBF-PU200-STC4-default-3sigSensorThreshold",
- # "VBF-PU200-STC4-default-5sigSensorThreshold",
-
- # "VBF-PU200-threshold0p5-default-3sigSensorThreshold",
- # "VBF-PU200-threshold1p0-default-3sigSensorThreshold",
- # "VBF-PU200-threshold1p5-default-3sigSensorThreshold",
- # "VBF-PU200-threshold0-default-2sigSensorThreshold",
- # "VBF-PU200-threshold0-default-4sigSensorThreshold",
- # "VBF-PU200-threshold0-default-5sigSensorThreshold",
+#TreeNames = [ "hgcalTriggerNtuplizer" ]
 
 
 
-   ]
+OutputDirList1=[  i.split("/")[1] for i in InputDirList ]
+OutputDirList=[  i.split("_")[1] for i in OutputDirList1 ]
+
 
 path = os.getcwd()
 
@@ -128,7 +205,7 @@ for indir, outdir in zip( InputDirList, OutputDirList ):
    print 'do not worry about folder creation:'
    print "res/" + outdir
    os.system("rm -r tmp/" + outdir)
-   os.system("rm -r res/" + outdir)
+#   os.system("rm -r res/" + outdir)
    os.system("mkdir -p tmp/" + outdir)
    os.system("mkdir -p res/" + outdir)
    print
@@ -150,7 +227,7 @@ for indir, outdir in zip( InputDirList, OutputDirList ):
          fout.write("cd "+str(path)+"\n")
          fout.write("source /afs/cern.ch/work/s/sawebb/private/FastJet_HGC/HGCTPGPerformance/init_env_lxplus.sh\n")
          fout.write("export X509_USER_PROXY=/afs/cern.ch/user/s/sawebb/private/myVoms/x509up_u`id -u`\n")
-         fout.write("python "+ScriptName+" --input='root://cms-xrd-global.cern.ch//store/user/sawebb/" + indir + "/ntuple_'\"$FILENAME\"'.root' -p 'input:tree:\"" + treename + "\"' --output='res/"+outdir + "/" + OutputFileNames+"_'\"$FILENAME\"'.root'\n")
+         fout.write("python "+ScriptName+" --input='root://cms-xrd-global.cern.ch//store/user/sawebb/" + indir + "/ntuple_'\"$FILENAME\"'.root' -p 'input:tree:\"" + treename + "\"'  -p 'output:tree:\"jets_" + treename + "\"' --output='res/"+outdir + "/" + OutputFileNames+"_" + treename + "_'\"$FILENAME\"'.root'\n")
 #         fout.write("python "+ScriptName+" --input='ntuple.root' --output='res/"+outdir + "/" + OutputFileNames+"_'\"$FILENAME\"'.root' -p 'input:tree:\"Floatingpoint8ThresholdRef2dRef3dGenclustersntuple\"'\n")
          fout.write("echo 'STOP---------------'\n")
          fout.write("echo\n")
@@ -165,10 +242,13 @@ for indir, outdir in zip( InputDirList, OutputDirList ):
          fout.write("error                 = $(ClusterId).$(ProcId).err\n")
          fout.write("log                   = $(ClusterId).$(ProcId).log\n")
          fout.write("+JobFlavour           = \"workday\"\n") 
+#         fout.write("+JobFlavour           = \"longlunch\"\n") 
          fout.write("queue " + str(NumberOfJobs))
          
-   ###### sends condor jobs ######
+         ###### sends condor jobs ######
       os.system("condor_submit condor.sub")
+      os.system("echo Waiting for 2 minutes")
+#      os.system("sleep 180s")
       
    
 

@@ -19,6 +19,7 @@ class parameters :
 
         ## cluster parameters
         self.cluster = {"dR": float(0.4), "ptmin":float(0.5)}
+#        self.cluster = {"dR": float(0.4), "ptmin":float(0.)}
         self.cluster_input = {"cl3D"}
 #        self.cluster_input = {"tc"}
         ## tree name
