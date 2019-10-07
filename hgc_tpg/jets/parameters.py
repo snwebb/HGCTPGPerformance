@@ -19,9 +19,13 @@ class parameters :
 
         ## cluster parameters
         self.cluster = {"dR": float(0.4), "ptmin":float(0.5)}
-#        self.cluster = {"dR": float(0.4), "ptmin":float(0.)}
+        self.dr_jet = 0.2#This is the jet clustering radius
         self.cluster_input = {"cl3D"}
-#        self.cluster_input = {"tc"}
+
+        # self.cluster = {"dR": float(0.4), "ptmin":float(0)}
+        # self.dr_jet = 0.2#This is the jet clustering radius
+        # self.cluster_input = {"tc"}
+
         ## tree name
         self.output = {"tree":"jets","file":"output.root"}
         self.input = {"tree":"hgcalTriggerNtuplizer"}
@@ -31,7 +35,6 @@ class parameters :
         self.torun=[]
         ## 
 
-        self.dr_jet = 0.2
         self.efficiency = {"ptbins":array('d',[20,30,40,50]),"etabins":array('d',[1.7,2.0,2.2,2.5,2.7]),"abseta":True,"dR":float(0.3)}
         self.fake = {"ptbins":array('d',[20,30,40,50]),"etabins":array('d',[1.7,2.0,2.2,2.5,2.7]),"abseta":True,"dR":float(0.3)}
         self.resolution = {"bins":np.arange(-2.0,10, .1,dtype='d'),"dR":float(0.3),"ptbins":array('d',[30.,40,50,60,70,80,90,100,120,150,200,300,500,1000,2000,3000])}

@@ -17,38 +17,10 @@ OutputFileNames = "ntuple_jet" # base of the output file name, they will be save
 ScriptName = "scripts/runJets.py" # script to be used with cmsRun
 #ScriptName = "scripts/runResolution.py" # script to be used with cmsRun
 
-#Single Gamma
-#"SingleGammaPt25Eta1p6_2p8/crab_SingleGammaPt25_PU0-threshold/181031_145212/0000"
-#"SingleGammaPt25Eta1p6_2p8/crab_SingleGammaPt25_PU0-stc/181031_145114/0000"
-#VBF
-#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_threshold/181108_112741/0000"
-#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_stc/181108_104142/0000"
-#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_threshold-histoMax/181113_145731/0000"
-#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_stc-histoMax/181113_145456/0000"
-
 queue = "8nh" # give bsub queue -- 8nm (8 minutes), 1nh (1 hour), 8nh, 1nd (1day), 2nd, 1nw (1 week), 2nw 
 ########   customization end   #########
 
 InputDirList = [ 
-
-#WORKSHOP
-
-#V9 (DEFAULT CLUSTER RADIUS)
-#  "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-Threshold/190610_093502/0000",
-#  "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SuperTCs/190610_093658/0000",
-#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SeedThreshold/190610_093753/0000",
-#   "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-ClusterRadius/190610_093841/0000",
-#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-Default-WithTriggerCells/190610_120552/0000",
-
-#Version2
-#"VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-SeedThreshold/190611_141655/0000",
-
-#V8 (DEFAULT CLUSTER RADIUS)
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-Threshold/190610_142648/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SuperTCs/190610_142730/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-SeedThreshold/190610_142831/0000",
-# "VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-MultiAlgo-ClusterRadius/190610_142908/0000",
-#"VBF_HToInvisible_M125_14TeV_powheg_pythia8/crab_VBF-PU200-Default-WithTriggerCells/190610_143015/0000",
 
 #V9 (EXTENDED CLUSTER RADIUS)
 # "VBFHToTauTau_M125_14TeV_powheg_pythia8/crab_VBF-HTT-PU200-MultiAlgo-Threshold-DR1p75/190610_160411/0000",
@@ -102,46 +74,47 @@ InputDirList = [
 
 #"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Default/190726_142831/0000",
 
-#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Decentralised/190730_112632/0000",
 
-#"NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-Decentralised/190731_092913/0000",
+
+# "VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Decentralised/190730_112632/0000",
+# "NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-Decentralised/190731_092913/0000",
 
 # "RelValDiQ_Pt20To300_Etam1p6Tom2p9/crab_QuarkGun-Neg-PU0-Decentralised/190802_100839/0000",
 # "RelValDiQ_Pt20To300_Etam1p6Tom2p9/crab_QuarkGun-Neg-PU140-Decentralised/190802_100807/0000",
 # "RelValDiQ_Pt20To300_Etam1p6Tom2p9/crab_QuarkGun-Neg-PU200-Decentralised/190802_100732/0000",
 
-"RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU0-Decentralised/190802_100704/0000",
-"RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU140-Decentralised/190802_100633/0000",
-"RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU200-Decentralised/190802_100555/0000",
+# "RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU0-Decentralised/190802_100704/0000",
+# "RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU140-Decentralised/190802_100633/0000",
+# "RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU200-Decentralised/190802_100555/0000",
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Decentralised-SignalDriven/190822_123250/0000",
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Default-withTCs/190822_132142/0000",
 
 
+#"NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-Decentralised-SignalDriven/190905_140242/0000",
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-Default-withTCs-LayerInfo/190913_134251/0000",
+
+#"NeutrinoGun_E_10GeV/crab_DoubleNu-PU200-Default-withTCs/190916_134011/0000",
+
+
+# "RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU0-Decentralised/190926_093004/0000",
+# "RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU140-Decentralised/190926_093906/0000",
+# "RelValDiQ_Pt20To300_Eta1p6To2p9/crab_QuarkGun-Pos-PU200-Decentralised/190926_093951/0000",
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-MixedFE-EM/190927_143347/0000",
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-BestChoice-Coarser/191002_102809/0000",
+
+#"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU0-BestChoice-CoarserInH-Fix/191003_164218/0000",
+
+"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-SuperTC-Old/191004_084722/0000",
+"VBFHToGG_M-125_14TeV_powheg_pythia8/crab_VBF-HGG-PU200-SuperTC-Validation/191004_083722/0000",
 
 ]
 
 
 TreeNames = [
-#THRESHOLD
-# "Fp8Threshold0p0DummyHistomaxvardrdrho1p0Ntup",
-# "Fp8Threshold1p0DummyHistomaxvardrdrho1p0Ntup",
-# "Fp8Threshold2p0DummyHistomaxvardrdrho1p0Ntup",
-# "Fp8Threshold3p0DummyHistomaxvardrdrho1p0Ntup",
-
-#THRESHOLD EXTENDED
-# "Fp8Threshold0p0DummyHistomaxvardrdrho1p75Ntup",
-# "Fp8Threshold0p5DummyHistomaxvardrdrho1p75Ntup",
-# "Fp8Threshold1p0DummyHistomaxvardrdrho1p75Ntup",
-# "Fp8Threshold1p5DummyHistomaxvardrdrho1p75Ntup",
-# "Fp8Threshold2p0DummyHistomaxvardrdrho1p75Ntup",
-# "Fp8Threshold3p0DummyHistomaxvardrdrho1p75Ntup",
-
-#SUPER TC
-
-# #SUPER TC EXTENDED
-# "Fp8BestchoiceDummyHistomaxvardrdrho1p0Ntup",
-# "Fp8Stc4161616DummyHistomaxvardrdrho1p0Ntup",
-# "Fp8Stc4444FixedDummyHistomaxvardrdrho1p0Ntup",
-# "Fp8EqualShare4444FixedDummyHistomaxvardrdrho1p0Ntup",
-# "Fp8Onebit4444FixedDummyHistomaxvardrdrho1p0Ntup",
 
 #SEED THRESHOLD
 
@@ -149,6 +122,10 @@ TreeNames = [
 #  "Fp8ThresholdDummyHistomaxvardrth10Ntup",
 #  "Fp8ThresholdDummyHistomaxvardrth20Ntup",
 #  "Fp8ThresholdDummyHistomaxvardrth40Ntup",
+
+# "Fp8ThresholdDummyHistomaxNtup",
+# "Fp8Stc4161616DummyHistomaxbin4Ntup",
+# "Fp8BestchoiceDummyHistomaxNtup",
 
 
 #DRHO
@@ -162,18 +139,27 @@ TreeNames = [
 
 
 # "Fp8ThresholdDummyHistomaxNtup",
-# "Fp8Stc4444FixedDummyHistomaxNtup",
+"Fp8Stc4444FixedDummyHistomaxNtup",
 # "Fp8BestchoiceDummyHistomaxNtup",
 
-"Fp8ThresholdDummyHistomaxNtup",
-"Fp8Stc4161616DummyHistomaxNtup",
-"Fp8BestchoiceDummyHistomaxNtup",
+
+
 
 # "Fp8ThresholdDummyHistomaxNtup",
-# "Fp8Stc4161616DummyHistomaxbin4Ntup",
+   "Fp8Stc4161616DummyHistomaxNtup",
 # "Fp8BestchoiceDummyHistomaxNtup",
+# "Fp8MixedDummyHistomaxNtup",
 
-#DEFAULT
+
+# "Fp8BestchoiceDummyHistomaxNtup",
+# "Fp8BestchoiceCoarse1DummyHistomaxNtup",
+# "Fp8BestchoiceCoarse2DummyHistomaxNtup",
+# "Fp8BestchoiceCoarse4DummyHistomaxNtup",
+# "Fp8BestchoiceCoarse8DummyHistomaxNtup",
+# "Fp8BestchoiceCoarse16DummyHistomaxNtup",
+
+#default
+
 #"hgcalTriggerNtuplizer",
 
  ]
@@ -184,6 +170,8 @@ TreeNames = [
 #TreeNames = [ "hgcalTriggerNtuplizer" ]
 
 
+Tag = "-DR0p2"
+#Tag = ""
 
 OutputDirList1=[  i.split("/")[1] for i in InputDirList ]
 OutputDirList=[  i.split("_")[1] for i in OutputDirList1 ]
@@ -200,6 +188,8 @@ print
 
 ##### loop for creating and sending jobs #####
 for indir, outdir in zip( InputDirList, OutputDirList ):
+
+   outdir = outdir + Tag
 
    print
    print 'do not worry about folder creation:'
@@ -227,7 +217,7 @@ for indir, outdir in zip( InputDirList, OutputDirList ):
          fout.write("cd "+str(path)+"\n")
          fout.write("source /afs/cern.ch/work/s/sawebb/private/FastJet_HGC/HGCTPGPerformance/init_env_lxplus.sh\n")
          fout.write("export X509_USER_PROXY=/afs/cern.ch/user/s/sawebb/private/myVoms/x509up_u`id -u`\n")
-         fout.write("python "+ScriptName+" --input='root://cms-xrd-global.cern.ch//store/user/sawebb/" + indir + "/ntuple_'\"$FILENAME\"'.root' -p 'input:tree:\"" + treename + "\"'  -p 'output:tree:\"jets_" + treename + "\"' --output='res/"+outdir + "/" + OutputFileNames+"_" + treename + "_'\"$FILENAME\"'.root'\n")
+         fout.write("python "+ScriptName+" --input='root://gfe02.grid.hep.ph.ic.ac.uk:1096//store/user/sawebb/" + indir + "/ntuple_'\"$FILENAME\"'.root' -p 'input:tree:\"" + treename + "\"'  -p 'output:tree:\"jets_" + treename + "\"' --output='res/"+outdir + "/" + OutputFileNames+"_" + treename + "_'\"$FILENAME\"'.root'\n")
 #         fout.write("python "+ScriptName+" --input='ntuple.root' --output='res/"+outdir + "/" + OutputFileNames+"_'\"$FILENAME\"'.root' -p 'input:tree:\"Floatingpoint8ThresholdRef2dRef3dGenclustersntuple\"'\n")
          fout.write("echo 'STOP---------------'\n")
          fout.write("echo\n")
@@ -243,6 +233,7 @@ for indir, outdir in zip( InputDirList, OutputDirList ):
          fout.write("log                   = $(ClusterId).$(ProcId).log\n")
          fout.write("+JobFlavour           = \"workday\"\n") 
 #         fout.write("+JobFlavour           = \"longlunch\"\n") 
+#         fout.write("+JobFlavour           = \"microcentury\"\n") 
          fout.write("queue " + str(NumberOfJobs))
          
          ###### sends condor jobs ######
